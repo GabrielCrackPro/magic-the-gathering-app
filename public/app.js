@@ -19,15 +19,19 @@ window.onload = async () => {
   const cardsData = await getData(API_URLS.cards);
   const cards = cardsData.cards;
   cards.forEach((card) => {
+    if (card.imageUrl == null) {
+      card.imageUrl =
+        "https://via.placeholder.com/728x90.png?text=Image+not+found";
+    }
     cardsList.innerHTML += `
       <div class="card mb-3 mt-3 bg-dark">
   <img src="${
     card.imageUrl
-  }" class="card-img-top" alt="card-img" width="auto" height="600">
+  }" class="card-img-top text-white" alt="card-img" width="auto" height="600">
   <div class="card-body">
-    <h5 class="card-title fw-bold text-center">${card.number} - ${
-      card.name
-    }</h5>
+    <h5 class="card-title fw-bold text-center bg-warning p-2">${
+      card.number
+    } - ${card.name}</h5>
     <ul class="list-group">
         <li class="list-group-item bg-warning text-center"><span class="fw-bold">Artist</span> - ${
           card.artist
@@ -56,6 +60,9 @@ window.onload = async () => {
         <li class="list-group-item text-center bg-warning"><span class="fw-bold">Layout</span> - ${
           card.layout
         }</li>
+        <li class="list-group-item text-center bg-warning"><span class="fw-bold">Mana Cost</span> - ${
+          card.manaCost
+        }<li>
          <li class="list-group-item text-center bg-warning"><span class="fw-bold">Text</span> - ${
            card.text
          }</li>
